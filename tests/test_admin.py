@@ -45,8 +45,23 @@ def test_admin_fields_are_readonly(admin_user, actlog_entry):
 
     assert "action" in readonly
     assert "user" in readonly
-    assert "metadata" in readonly
     assert "created_at" in readonly
+
+
+def test_admin_metadata_field_is_disabled(admin_user, actlog_entry):
+    model_admin = admin.site._registry[ActLog]
+    form = model_admin.get_form(request=None)(instance=actlog_entry)
+
+    assert form.fields["metadata"].disabled is True
+
+
+def test_admin_change_view_renders(admin_user, actlog_entry):
+    client = Client()
+    client.force_login(admin_user)
+    url = f"/admin/actlog/actlog/{actlog_entry.pk}/change/"
+    response = client.get(url)
+    assert response.status_code == 200
+    assert "LOGIN_SUCCESS" in response.content.decode()
 
 
 def test_admin_changelist_renders(admin_user, actlog_entry):

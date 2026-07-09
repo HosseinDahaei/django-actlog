@@ -40,4 +40,6 @@ class ActLogAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["metadata"].disabled = True
+        metadata_field = self.fields.get("metadata")
+        if metadata_field is not None:
+            metadata_field.disabled = True

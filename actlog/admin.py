@@ -21,7 +21,6 @@ class ActLogAdmin(admin.ModelAdmin):
     readonly_fields = (
         "user",
         "action",
-        "metadata",
         "created_at",
     )
 
