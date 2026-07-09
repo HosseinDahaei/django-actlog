@@ -22,9 +22,6 @@ def actlog_entry(db):
     return ActLog.objects.create(
         user=user,
         action="LOGIN_SUCCESS",
-        ip="127.0.0.1",
-        device_id="dev-1",
-        user_agent="pytest",
         metadata={"method": "otp"},
     )
 

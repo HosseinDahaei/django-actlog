@@ -23,9 +23,6 @@ class ActLog(models.Model):
         max_length=get_setting("ACTLOG_ACTION_MAX_LENGTH"),
         db_index=True,
     )
-    ip = models.GenericIPAddressField(null=True, blank=True)
-    device_id = models.CharField(max_length=255, blank=True, default="")
-    user_agent = models.TextField(blank=True, default="")
     metadata = models.JSONField(default=dict, blank=True)
     created_at = models.DateTimeField(
         default=timezone.now,

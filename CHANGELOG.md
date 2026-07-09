@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2026-07-09
+
+### Removed
+
+- `ActLog` model fields: `ip`, `device_id`, `user_agent`
+- `log_event()` kwargs: `request`, `ip`, `device_id`, `user_agent`
+- Request context auto-capture from `log_event()` — pass context via `metadata` instead
+
 ## [0.2.0] - 2026-07-09
 
 ### Changed
@@ -30,5 +38,6 @@ All notable changes to this project will be documented in this file.
 - Test suite with pytest-django
 - GitHub Actions CI matrix (Django 4.2 / 5.0 / 6.0 × Python 3.10–3.12)
 
+[0.3.0]: https://github.com/HosseinDahaei/django-actlog/releases/tag/v0.3.0
 [0.2.0]: https://github.com/HosseinDahaei/django-actlog/releases/tag/v0.2.0
 [0.1.0]: https://github.com/HosseinDahaei/django-actlog/releases/tag/v0.1.0

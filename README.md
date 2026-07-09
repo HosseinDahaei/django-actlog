@@ -49,18 +49,16 @@ def on_login_success(user, request, session):
     event = log_event(
         LOGIN_SUCCESS,
         user=user,
-        request=request,
-        metadata={"method": "otp", "session_id": session.id},
+        metadata={
+            "method": "otp",
+            "session_id": session.id,
+            "ip": request.META.get("REMOTE_ADDR"),
+            "user_agent": request.META.get("HTTP_USER_AGENT", ""),
+        },
     )
 ```
 
-`log_event()` persists synchronously and returns the created `ActLog` instance. It captures request context when `request` is provided:
-
-- `ip` from `request.META["REMOTE_ADDR"]`
-- `user_agent` from `request.META.get("HTTP_USER_AGENT", "")`
-- `device_id` from the explicit argument or `metadata["device_id"]`
-
-Explicit arguments always override request-derived values.
+`log_event()` persists synchronously and returns the created `ActLog` instance. Pass any request or domain context via `metadata`.
 
 ## Settings
 

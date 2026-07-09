@@ -15,20 +15,12 @@ class ActLogAdmin(admin.ModelAdmin):
     """Read-only admin for application event records."""
 
     form = ActLogAdminForm
-    list_display = ("id", "action", "user", "ip", "device_id", "created_at")
-    search_fields = tuple(get_setting("ACTLOG_USER_SEARCH_FIELDS")) + (
-        "action",
-        "device_id",
-        "ip",
-        "user_agent",
-    )
+    list_display = ("id", "action", "user", "created_at")
+    search_fields = tuple(get_setting("ACTLOG_USER_SEARCH_FIELDS")) + ("action",)
     ordering = ("-created_at",)
     readonly_fields = (
         "user",
         "action",
-        "ip",
-        "device_id",
-        "user_agent",
         "metadata",
         "created_at",
     )
