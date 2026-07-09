@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2026-07-09
+
+### Changed
+
+- `log_event()` always persists synchronously and returns the created `ActLog` instance
+
+### Removed
+
+- Async mode with `transaction.on_commit` signal dispatch and Celery task `actlog.write_actlog_task`
+- Settings: `ACTLOG_SYNC`, `ACTLOG_EMIT_IMMEDIATELY`, `ACTLOG_CELERY_TASK`
+- Optional dependency extra: `django-actlog[celery]`
+- Modules: `actlog.dispatch`, `actlog.signals`, `actlog.receivers`, `actlog.tasks`
+
 ## [0.1.0] - 2026-07-09
 
 ### Added
@@ -17,4 +30,5 @@ All notable changes to this project will be documented in this file.
 - Test suite with pytest-django
 - GitHub Actions CI matrix (Django 4.2 / 5.0 / 6.0 × Python 3.10–3.12)
 
+[0.2.0]: https://github.com/HosseinDahaei/django-actlog/releases/tag/v0.2.0
 [0.1.0]: https://github.com/HosseinDahaei/django-actlog/releases/tag/v0.1.0

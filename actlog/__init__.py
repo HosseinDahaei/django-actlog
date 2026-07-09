@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 __all__ = ["log_event", "ActLog"]
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 
 def __getattr__(name: str):

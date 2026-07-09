@@ -9,13 +9,10 @@ from django.conf import settings
 from django.db import models
 
 DEFAULTS: dict[str, Any] = {
-    "ACTLOG_SYNC": False,
-    "ACTLOG_EMIT_IMMEDIATELY": False,
     "ACTLOG_MODEL": "actlog.ActLog",
     "ACTLOG_USER_RELATED_NAME": "act_logs",
     "ACTLOG_ACTION_MAX_LENGTH": 64,
     "ACTLOG_USER_SEARCH_FIELDS": ("user__email",),
-    "ACTLOG_CELERY_TASK": None,
 }
 
 

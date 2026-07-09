@@ -1,4 +1,3 @@
-import pytest
 from actlog.models import ActLog
 from actlog.services.logging import log_event
 from django.contrib.auth import get_user_model
@@ -49,7 +48,7 @@ def test_log_event_allows_explicit_overrides(db):
     assert event.metadata["k"] == "v"
 
 
-def test_log_event_sync_returns_instance(db):
+def test_log_event_returns_instance(db):
     user = get_user_model().objects.create_user(username="carol", password="pass")
 
     event = log_event(TEST_ACTION, user=user, metadata={"source": "test"})
@@ -60,22 +59,3 @@ def test_log_event_sync_returns_instance(db):
     assert event.user_id == user.id
     assert event.metadata == {"source": "test"}
     assert ActLog.objects.filter(pk=event.pk).exists()
-
-
-@pytest.mark.django_db(transaction=True)
-def test_log_event_async_does_not_write_before_commit(settings):
-    settings.ACTLOG_SYNC = False
-    settings.ACTLOG_EMIT_IMMEDIATELY = False
-    user = get_user_model().objects.create_user(username="dave", password="pass")
-
-    from django.db import transaction
-
-    with transaction.atomic():
-        result = log_event(TEST_ACTION, user=user)
-        assert result is None
-        assert ActLog.objects.count() == 0
-
-    assert ActLog.objects.count() == 1
-    event = ActLog.objects.get()
-    assert event.action == TEST_ACTION
-    assert event.user_id == user.id
