@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from actlog.choices import Level
 from actlog.conf import get_actlog_model
 
 if TYPE_CHECKING:
@@ -19,7 +20,7 @@ def _persist_actlog(
 ) -> ActLog:
     model = get_actlog_model()
     if level is None:
-        level = model.Level.INFO
+        level = Level.INFO
     return model.objects.create(
         user_id=user_id,
         action=action,

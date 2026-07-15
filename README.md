@@ -42,8 +42,7 @@ OTP_SENT = "OTP_SENT"
 Log events from your services:
 
 ```python
-from actlog import log_event
-from actlog.models import ActLog
+from actlog import log_event, Level
 from myapp.audit_constants import LOGIN_SUCCESS, LOGIN_FAILED
 
 def on_login_success(user, request, session):
@@ -61,14 +60,14 @@ def on_login_success(user, request, session):
 def on_login_failed(request, username):
     log_event(
         LOGIN_FAILED,
-        level=ActLog.Level.WARNING,
+        level=Level.WARNING,
         metadata={"username": username, "ip": request.META.get("REMOTE_ADDR")},
     )
 ```
 
 `log_event()` persists synchronously and returns the created `ActLog` instance. Pass any request or domain context via `metadata`.
 
-Severity is set with `level` (optional; default `INFO`). Values mirror Python logging: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL` (`ActLog.Level`).
+Severity is set with `level` (optional; default `INFO`). Values mirror Python logging: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL` (`Level`).
 
 ## Settings
 
@@ -94,8 +93,9 @@ Custom user models: override `ACTLOG_USER_SEARCH_FIELDS` if `user__email` does n
 ## Public API
 
 ```python
-from actlog import log_event, ActLog
+from actlog import log_event, ActLog, Level
 from actlog.models import ActLog
+from actlog.choices import Level
 from actlog.services import log_event
 ```
 

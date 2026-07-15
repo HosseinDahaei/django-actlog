@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-__all__ = ["log_event", "ActLog"]
+__all__ = ["log_event", "ActLog", "Level"]
 __version__ = "0.4.0"
 
 
@@ -13,4 +13,8 @@ def __getattr__(name: str):
         from actlog.models import ActLog
 
         return ActLog
+    if name == "Level":
+        from actlog.choices import Level
+
+        return Level
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

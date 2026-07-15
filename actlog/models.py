@@ -6,18 +6,14 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
+from actlog.choices import Level
 from actlog.conf import get_setting
 
 
 class ActLog(models.Model):
     """Immutable application event record."""
 
-    class Level(models.TextChoices):
-        DEBUG = "DEBUG", "Debug"
-        INFO = "INFO", "Info"
-        WARNING = "WARNING", "Warning"
-        ERROR = "ERROR", "Error"
-        CRITICAL = "CRITICAL", "Critical"
+    Level = Level
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

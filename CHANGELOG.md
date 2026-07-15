@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Severity constants are a first-class public API: `from actlog import Level` (prefer over `ActLog.Level`; the model alias remains for compatibility)
+
 ## [0.4.0] - 2026-07-15
 
 ### Added

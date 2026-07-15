@@ -5,6 +5,7 @@ from __future__ import annotations
 from django.contrib import admin
 from django.utils.html import format_html
 
+from actlog.choices import Level
 from actlog.conf import get_actlog_model, get_setting
 from actlog.forms import ActLogAdminForm
 
@@ -32,7 +33,7 @@ class ActLogAdmin(admin.ModelAdmin):
 
     @admin.display(description="Level", ordering="level")
     def colored_level(self, obj):
-        level = obj.level or ActLog.Level.INFO
+        level = obj.level or Level.INFO
         return format_html(
             '<span class="actlog-level actlog-level--{}">{}</span>',
             level.lower(),
