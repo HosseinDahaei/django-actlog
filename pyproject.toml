@@ -48,6 +48,9 @@ Documentation = "https://github.com/HosseinDahaei/django-actlog#readme"
 [tool.setuptools.packages.find]
 include = ["actlog*"]
 
+[tool.setuptools.package-data]
+actlog = ["static/actlog/*"]
+
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tests.settings"
 pythonpath = ["."]

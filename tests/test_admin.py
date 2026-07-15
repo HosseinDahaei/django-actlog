@@ -44,6 +44,7 @@ def test_admin_fields_are_readonly(admin_user, actlog_entry):
     readonly = model_admin.get_readonly_fields(request=None, obj=actlog_entry)
 
     assert "action" in readonly
+    assert "level" in readonly
     assert "user" in readonly
     assert "created_at" in readonly
 
@@ -69,4 +70,15 @@ def test_admin_changelist_renders(admin_user, actlog_entry):
     client.force_login(admin_user)
     response = client.get("/admin/actlog/actlog/")
     assert response.status_code == 200
-    assert "LOGIN_SUCCESS" in response.content.decode()
+    content = response.content.decode()
+    assert "LOGIN_SUCCESS" in content
+    assert "actlog-level" in content
+    assert "actlog-level--info" in content
+    assert "INFO" in content
+
+
+def test_admin_colored_level_renders_badge(admin_user, actlog_entry):
+    model_admin = admin.site._registry[ActLog]
+    html = model_admin.colored_level(actlog_entry)
+    assert 'class="actlog-level actlog-level--info"' in html
+    assert "INFO" in html

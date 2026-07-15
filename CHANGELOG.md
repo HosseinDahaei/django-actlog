@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- `ActLog.level` CharField with TextChoices (`DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`), default `INFO`, indexed
+- `log_event(level=...)` parameter; omit to use `INFO`
+- Colored level badges in the Django admin changelist (light and dark themes)
+
 ## [0.3.0] - 2026-07-09
 
 ### Removed

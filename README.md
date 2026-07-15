@@ -43,7 +43,8 @@ Log events from your services:
 
 ```python
 from actlog import log_event
-from myapp.audit_constants import LOGIN_SUCCESS
+from actlog.models import ActLog
+from myapp.audit_constants import LOGIN_SUCCESS, LOGIN_FAILED
 
 def on_login_success(user, request, session):
     event = log_event(
@@ -56,9 +57,18 @@ def on_login_success(user, request, session):
             "user_agent": request.META.get("HTTP_USER_AGENT", ""),
         },
     )
+
+def on_login_failed(request, username):
+    log_event(
+        LOGIN_FAILED,
+        level=ActLog.Level.WARNING,
+        metadata={"username": username, "ip": request.META.get("REMOTE_ADDR")},
+    )
 ```
 
 `log_event()` persists synchronously and returns the created `ActLog` instance. Pass any request or domain context via `metadata`.
+
+Severity is set with `level` (optional; default `INFO`). Values mirror Python logging: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL` (`ActLog.Level`).
 
 ## Settings
 

@@ -12,6 +12,13 @@ from actlog.conf import get_setting
 class ActLog(models.Model):
     """Immutable application event record."""
 
+    class Level(models.TextChoices):
+        DEBUG = "DEBUG", "Debug"
+        INFO = "INFO", "Info"
+        WARNING = "WARNING", "Warning"
+        ERROR = "ERROR", "Error"
+        CRITICAL = "CRITICAL", "Critical"
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -21,6 +28,12 @@ class ActLog(models.Model):
     )
     action = models.CharField(
         max_length=get_setting("ACTLOG_ACTION_MAX_LENGTH"),
+        db_index=True,
+    )
+    level = models.CharField(
+        max_length=16,
+        choices=Level.choices,
+        default=Level.INFO,
         db_index=True,
     )
     metadata = models.JSONField(default=dict, blank=True)
@@ -44,4 +57,7 @@ class ActLog(models.Model):
         ordering = ("-created_at",)
 
     def __str__(self) -> str:
-        return f"action={self.action} user={self.user_id} at={self.created_at.isoformat()}"
+        return (
+            f"level={self.level} action={self.action} "
+            f"user={self.user_id} at={self.created_at.isoformat()}"
+        )

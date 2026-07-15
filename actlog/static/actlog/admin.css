@@ -1,0 +1,73 @@
+/* ActLog admin level badges */
+
+.actlog-level {
+  display: inline-block;
+  padding: 0.15em 0.55em;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.actlog-level--debug {
+  background: #e8eef3;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+.actlog-level--info {
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-color: #93c5fd;
+}
+
+.actlog-level--warning {
+  background: #fef3c7;
+  color: #b45309;
+  border-color: #fcd34d;
+}
+
+.actlog-level--error {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+.actlog-level--critical {
+  background: #fecaca;
+  color: #7f1d1d;
+  border-color: #991b1b;
+}
+
+html[data-theme="dark"] .actlog-level--debug {
+  background: #334155;
+  color: #cbd5e1;
+  border-color: #64748b;
+}
+
+html[data-theme="dark"] .actlog-level--info {
+  background: #1e3a5f;
+  color: #93c5fd;
+  border-color: #3b82f6;
+}
+
+html[data-theme="dark"] .actlog-level--warning {
+  background: #422006;
+  color: #fcd34d;
+  border-color: #d97706;
+}
+
+html[data-theme="dark"] .actlog-level--error {
+  background: #450a0a;
+  color: #fca5a5;
+  border-color: #ef4444;
+}
+
+html[data-theme="dark"] .actlog-level--critical {
+  background: #7f1d1d;
+  color: #fecaca;
+  border-color: #f87171;
+}

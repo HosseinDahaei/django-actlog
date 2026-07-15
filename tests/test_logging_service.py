@@ -13,6 +13,7 @@ def test_log_event_returns_instance(db):
     assert event is not None
     assert isinstance(event, ActLog)
     assert event.action == TEST_ACTION
+    assert event.level == ActLog.Level.INFO
     assert event.user_id == user.id
     assert event.metadata == {"source": "test"}
     assert ActLog.objects.filter(pk=event.pk).exists()
@@ -30,3 +31,19 @@ def test_log_event_stores_metadata_as_is(db):
     event = log_event(TEST_ACTION, user=user, metadata=metadata)
 
     assert event.metadata == metadata
+
+
+def test_log_event_defaults_level_to_info(db):
+    event = log_event(TEST_ACTION)
+
+    assert event.level == ActLog.Level.INFO
+
+
+def test_log_event_persists_explicit_level(db):
+    user = get_user_model().objects.create_user(username="erin", password="pass")
+
+    warning = log_event(TEST_ACTION, user=user, level=ActLog.Level.WARNING)
+    error = log_event(TEST_ACTION, user=user, level=ActLog.Level.ERROR)
+
+    assert warning.level == ActLog.Level.WARNING
+    assert error.level == ActLog.Level.ERROR
