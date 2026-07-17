@@ -1,10 +1,12 @@
 import pytest
 from actlog.admin import ActLogAdmin
 from actlog.models import ActLog
+from django.apps import apps
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.test import Client
+from django_json_widget.widgets import JSONEditorWidget
 
 
 @pytest.fixture
@@ -54,6 +56,28 @@ def test_admin_metadata_field_is_disabled(admin_user, actlog_entry):
     form = model_admin.get_form(request=None)(instance=actlog_entry)
 
     assert form.fields["metadata"].disabled is True
+
+
+def test_django_json_widget_auto_registered():
+    assert apps.is_installed("django_json_widget")
+
+
+def test_admin_metadata_uses_json_editor_widget(admin_user, actlog_entry):
+    model_admin = admin.site._registry[ActLog]
+    form = model_admin.get_form(request=None)(instance=actlog_entry)
+
+    assert isinstance(form.fields["metadata"].widget, JSONEditorWidget)
+
+
+def test_admin_change_view_includes_jsoneditor_assets(admin_user, actlog_entry):
+    client = Client()
+    client.force_login(admin_user)
+    url = f"/admin/actlog/actlog/{actlog_entry.pk}/change/"
+    response = client.get(url)
+    content = response.content.decode()
+
+    assert response.status_code == 200
+    assert "jsoneditor" in content.lower()
 
 
 def test_admin_change_view_renders(admin_user, actlog_entry):

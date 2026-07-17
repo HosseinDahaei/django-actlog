@@ -11,7 +11,10 @@ license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Hossein Dahaei", email = "dahaeehossein@gmail.com" }]
 requires-python = ">=3.10"
-dependencies = ["Django>=4.2"]
+dependencies = [
+    "Django>=4.2",
+    "django-json-widget>=2.0",
+]
 keywords = ["django", "audit", "activity-log", "event-logging"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -32,7 +35,6 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-admin = ["django-json-widget>=2.0"]
 dev = [
     "pytest>=7.0",
     "pytest-django>=4.5",

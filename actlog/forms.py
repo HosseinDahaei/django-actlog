@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from django import forms
+from django_json_widget.widgets import JSONEditorWidget
 
 from actlog.conf import get_actlog_model
 
@@ -15,27 +16,18 @@ _METADATA_VIEW_OPTIONS = {
 }
 
 
-def _metadata_widget():
-    try:
-        from django_json_widget.widgets import JSONEditorWidget
-
-        return JSONEditorWidget(
-            options=_METADATA_VIEW_OPTIONS,
-            height="480px",
-            width="100%",
-        )
-    except ImportError:
-        return forms.Textarea(attrs={"rows": 20, "cols": 80, "readonly": True})
-
-
 class ActLogAdminForm(forms.ModelForm):
-    """Read-only actlog detail form; metadata uses JSONEditor when available."""
+    """Read-only actlog detail form; metadata uses JSONEditor."""
 
     class Meta:
         model = get_actlog_model()
         fields = "__all__"
         widgets = {
-            "metadata": _metadata_widget(),
+            "metadata": JSONEditorWidget(
+                options=_METADATA_VIEW_OPTIONS,
+                height="480px",
+                width="100%",
+            ),
         }
 
     def __init__(self, *args, **kwargs):

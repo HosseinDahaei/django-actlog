@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Severity constants are a first-class public API: `from actlog import Level` (prefer over `ActLog.Level`; the model alias remains for compatibility)
+- `django-json-widget` is now a required dependency; metadata in Django admin always uses `JSONEditorWidget`
+- `django_json_widget` is auto-registered in `INSTALLED_APPS` when `actlog` is installed (no manual entry needed)
+- Removed optional `[admin]` extra (`pip install django-actlog` includes the JSON editor)
 
 ## [0.4.0] - 2026-07-15
 
