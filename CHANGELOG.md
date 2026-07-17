@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [0.5.0] - 2026-07-17
+## [0.5.1] - 2026-07-17
 
 ### Changed
 
@@ -57,7 +57,7 @@ All notable changes to this project will be documented in this file.
 - Test suite with pytest-django
 - GitHub Actions CI matrix (Django 4.2 / 5.0 / 6.0 × Python 3.10–3.12)
 
-[0.5.0]: https://github.com/HosseinDahaei/django-actlog/releases/tag/v0.5.0
+[0.5.1]: https://github.com/HosseinDahaei/django-actlog/releases/tag/v0.5.1
 [0.4.0]: https://github.com/HosseinDahaei/django-actlog/releases/tag/v0.4.0
 [0.3.0]: https://github.com/HosseinDahaei/django-actlog/releases/tag/v0.3.0
 [0.2.0]: https://github.com/HosseinDahaei/django-actlog/releases/tag/v0.2.0
